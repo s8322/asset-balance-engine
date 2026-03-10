@@ -38,10 +38,21 @@ class AssetType(Enum):
     OTHER = auto()
 
 
+class CalculationTrackType(Enum):
+    ACCUMULATING_SAVINGS = auto()
+    BUDGETARY_PENSION = auto()
+    EQUITY_COMPENSATION = auto()
+    INVESTMENT_OR_CASH = auto()
+    LIABILITY = auto()
+    EMPLOYMENT_RIGHTS = auto()
+    LEGAL_REFERENCE = auto()
+
+
 __all__ = [
     "Currency",
     "CalculationStatus",
     "AccumulatingSavingsCalculationBasis",
     "AssetType",
+    "CalculationTrackType",
 ]
 
