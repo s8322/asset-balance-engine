@@ -6,7 +6,7 @@ from .enums import (
     DocumentStatus,
     DocumentType,
 )
-from .extraction_enums import ExtractedValueType, ExtractionMethod
+from .extraction_enums import ExtractedValueType, ExtractionMethod, FieldKey
 from .extraction_models import ExtractedField
 from .models import Document
 from .review_enums import ReviewOutcome, ReviewStatus
@@ -23,6 +23,7 @@ __all__ = [
     "ExtractedField",
     "ExtractedValueType",
     "ExtractionMethod",
+    "FieldKey",
     "ReviewItem",
     "ReviewStatus",
     "ReviewOutcome",

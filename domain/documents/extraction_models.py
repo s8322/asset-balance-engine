@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .extraction_enums import ExtractedValueType, ExtractionMethod
+from .extraction_enums import ExtractedValueType, ExtractionMethod, FieldKey
 
 
 @dataclass(frozen=True)
 class ExtractedField:
     id: str
     document_id: str
-    field_name: str
+    field_key: FieldKey
     raw_value: str | None
     normalized_value: str | None
     value_type: ExtractedValueType
