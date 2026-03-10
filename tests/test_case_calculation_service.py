@@ -3,7 +3,7 @@ from datetime import date
 from application.case_calculation_service import CaseCalculationService
 from domain.asset import Asset
 from domain.asset_source_dates import AssetSourceDates
-from domain.enums import AssetType, Currency
+from domain.enums import AssetType, CalculationTrackType, Currency
 from domain.shared_period import SharedPeriod
 
 
@@ -37,6 +37,9 @@ def test_single_asset_with_balance_returns_one_result() -> None:
     assert results.metrics.calculated_count == 1
     assert results.metrics.skipped_count == 0
     assert results.metrics.by_asset_type == {AssetType.PENSION: 1}
+    assert results.metrics.by_track_type == {
+        CalculationTrackType.ACCUMULATING_SAVINGS: 1,
+    }
 
 
 def test_asset_with_no_calculation_track_returns_empty_list() -> None:
@@ -65,6 +68,9 @@ def test_asset_with_no_calculation_track_returns_empty_list() -> None:
     assert results.metrics.calculated_count == 0
     assert results.metrics.skipped_count == 1
     assert results.metrics.by_asset_type == {AssetType.BANK_ACCOUNT: 1}
+    assert results.metrics.by_track_type == {
+        CalculationTrackType.INVESTMENT_OR_CASH: 1,
+    }
 
 
 def test_mixed_assets_returns_only_calculable_results() -> None:
@@ -105,6 +111,10 @@ def test_mixed_assets_returns_only_calculable_results() -> None:
         AssetType.PENSION: 1,
         AssetType.BANK_ACCOUNT: 1,
     }
+    assert results.metrics.by_track_type == {
+        CalculationTrackType.ACCUMULATING_SAVINGS: 1,
+        CalculationTrackType.INVESTMENT_OR_CASH: 1,
+    }
 
 
 def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
@@ -133,3 +143,6 @@ def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
     assert results.metrics.calculated_count == 1
     assert results.metrics.skipped_count == 0
     assert results.metrics.by_asset_type == {AssetType.PENSION: 1}
+    assert results.metrics.by_track_type == {
+        CalculationTrackType.ACCUMULATING_SAVINGS: 1,
+    }

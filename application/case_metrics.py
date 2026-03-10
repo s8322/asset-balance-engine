@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from domain.enums import AssetType
+from domain.enums import AssetType, CalculationTrackType
 
 
 @dataclass
@@ -11,6 +11,7 @@ class CaseMetrics:
     calculated_count: int
     skipped_count: int
     by_asset_type: dict[AssetType, int]
+    by_track_type: dict[CalculationTrackType, int]
 
 
 __all__ = ["CaseMetrics"]
