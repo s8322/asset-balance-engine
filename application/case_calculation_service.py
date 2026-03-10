@@ -7,6 +7,8 @@ from domain.calculation_orchestrator import run_calculation_for_asset
 from domain.calculation_result import CalculationResult
 from domain.shared_period import SharedPeriod
 
+from .case_calculation_result import CaseCalculationResult
+
 
 class CaseCalculationService:
     def calculate_case(
@@ -15,9 +17,11 @@ class CaseCalculationService:
         marriage_period: SharedPeriod,
         valuation_date: date,
         balance_by_asset_id: dict[str, float] | None = None,
-    ) -> list[CalculationResult]:
+    ) -> CaseCalculationResult:
         balance_by_asset_id = balance_by_asset_id or {}
         results: list[CalculationResult] = []
+        calculated_asset_ids: list[str] = []
+        skipped_asset_ids: list[str] = []
 
         for asset in assets:
             balance = balance_by_asset_id.get(asset.id, 0.0)
@@ -30,5 +34,12 @@ class CaseCalculationService:
             )
             if result is not None:
                 results.append(result)
+                calculated_asset_ids.append(asset.id)
+            else:
+                skipped_asset_ids.append(asset.id)
 
-        return results
+        return CaseCalculationResult(
+            results=results,
+            calculated_asset_ids=calculated_asset_ids,
+            skipped_asset_ids=skipped_asset_ids,
+        )
