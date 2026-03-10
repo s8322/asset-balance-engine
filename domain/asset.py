@@ -5,6 +5,7 @@ from typing import Optional
 
 from .asset_source_dates import AssetSourceDates
 from .enums import AssetType, Currency
+from .liability_metadata import LiabilityMetadata
 
 
 @dataclass(frozen=True)
@@ -18,6 +19,7 @@ class Asset:
     institution_name: str | None = None
     source_type: str | None = None
     source_dates: AssetSourceDates | None = None
+    liability_metadata: LiabilityMetadata | None = None
 
 
 __all__ = ["Asset"]

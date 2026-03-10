@@ -48,11 +48,28 @@ class CalculationTrackType(Enum):
     LEGAL_REFERENCE = auto()
 
 
+class BorrowerScope(Enum):
+    PARTY_A = auto()
+    PARTY_B = auto()
+    JOINT = auto()
+    UNKNOWN = auto()
+
+
+class PurposeScope(Enum):
+    FAMILY_ASSET = auto()
+    PERSONAL_A = auto()
+    PERSONAL_B = auto()
+    BUSINESS = auto()
+    UNKNOWN = auto()
+
+
 __all__ = [
     "Currency",
     "CalculationStatus",
     "AccumulatingSavingsCalculationBasis",
     "AssetType",
     "CalculationTrackType",
+    "BorrowerScope",
+    "PurposeScope",
 ]
 
