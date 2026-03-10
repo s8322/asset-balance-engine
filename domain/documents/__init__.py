@@ -15,6 +15,7 @@ from .anomaly_enums import AnomalyCode, AnomalySeverity, AnomalyStatus
 from .anomaly_models import AnomalyItem
 from .schema_models import DocumentExtractionSchema, FieldRequirement
 from .schema_validation import SchemaValidationResult, validate_extraction
+from .validation_to_anomaly import anomalies_from_validation
 
 __all__ = [
     "Document",
@@ -37,4 +38,5 @@ __all__ = [
     "DocumentExtractionSchema",
     "SchemaValidationResult",
     "validate_extraction",
+    "anomalies_from_validation",
 ]
