@@ -33,6 +33,9 @@ def test_single_asset_with_balance_returns_one_result() -> None:
     assert 0.0 <= results.results[0].shared_ratio <= 1.0
     assert results.calculated_asset_ids == ["asset-1"]
     assert results.skipped_asset_ids == []
+    assert results.total_assets == 1
+    assert results.calculated_count == 1
+    assert results.skipped_count == 0
 
 
 def test_asset_with_no_calculation_track_returns_empty_list() -> None:
@@ -57,6 +60,9 @@ def test_asset_with_no_calculation_track_returns_empty_list() -> None:
     assert results.results == []
     assert results.calculated_asset_ids == []
     assert results.skipped_asset_ids == ["asset-bank"]
+    assert results.total_assets == 1
+    assert results.calculated_count == 0
+    assert results.skipped_count == 1
 
 
 def test_mixed_assets_returns_only_calculable_results() -> None:
@@ -90,6 +96,9 @@ def test_mixed_assets_returns_only_calculable_results() -> None:
     assert results.results[0].total_days > 0
     assert results.calculated_asset_ids == ["pension-1"]
     assert results.skipped_asset_ids == ["bank-1"]
+    assert results.total_assets == 2
+    assert results.calculated_count == 1
+    assert results.skipped_count == 1
 
 
 def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
@@ -114,3 +123,6 @@ def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
 
     assert len(results.results) == 1
     assert results.results[0].gross_shared_value == 0.0
+    assert results.total_assets == 1
+    assert results.calculated_count == 1
+    assert results.skipped_count == 0

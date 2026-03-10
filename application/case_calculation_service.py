@@ -42,4 +42,7 @@ class CaseCalculationService:
             results=results,
             calculated_asset_ids=calculated_asset_ids,
             skipped_asset_ids=skipped_asset_ids,
+            total_assets=len(assets),
+            calculated_count=len(calculated_asset_ids),
+            skipped_count=len(skipped_asset_ids),
         )
