@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
+from .asset_source_dates import AssetSourceDates
 from .enums import AssetType, Currency
 
 
@@ -16,6 +17,7 @@ class Asset:
     owner_label: str | None = None
     institution_name: str | None = None
     source_type: str | None = None
+    source_dates: AssetSourceDates | None = None
 
 
 __all__ = ["Asset"]
