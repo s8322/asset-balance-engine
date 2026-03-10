@@ -3,14 +3,6 @@ from __future__ import annotations
 from enum import Enum, auto
 
 
-class AssetClass(Enum):
-    EQUITY = auto()
-    BOND = auto()
-    CASH = auto()
-    FUND = auto()
-    OTHER = auto()
-
-
 class Currency(Enum):
     USD = auto()
     EUR = auto()
@@ -30,10 +22,26 @@ class AccumulatingSavingsCalculationBasis(Enum):
     REPORT_BASED = auto()
 
 
+class AssetType(Enum):
+    PENSION = auto()
+    STUDY_FUND = auto()
+    PROVIDENT_FUND = auto()
+    EXECUTIVE_INSURANCE = auto()
+    BUDGETARY_PENSION = auto()
+    RSU = auto()
+    STOCK_OPTIONS = auto()
+    INVESTMENT_ACCOUNT = auto()
+    BANK_ACCOUNT = auto()
+    LIABILITY = auto()
+    EMPLOYMENT_RIGHTS = auto()
+    LEGAL_DOCUMENT = auto()
+    OTHER = auto()
+
+
 __all__ = [
-    "AssetClass",
     "Currency",
     "CalculationStatus",
     "AccumulatingSavingsCalculationBasis",
+    "AssetType",
 ]
 
