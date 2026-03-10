@@ -13,6 +13,8 @@ from .review_enums import ReviewOutcome, ReviewStatus
 from .review_models import ReviewItem
 from .anomaly_enums import AnomalyCode, AnomalySeverity, AnomalyStatus
 from .anomaly_models import AnomalyItem
+from .schema_models import DocumentExtractionSchema, FieldRequirement
+from .schema_validation import SchemaValidationResult, validate_extraction
 
 __all__ = [
     "Document",
@@ -31,4 +33,8 @@ __all__ = [
     "AnomalySeverity",
     "AnomalyStatus",
     "AnomalyCode",
+    "FieldRequirement",
+    "DocumentExtractionSchema",
+    "SchemaValidationResult",
+    "validate_extraction",
 ]
