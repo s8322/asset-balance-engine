@@ -5,9 +5,11 @@ from datetime import date
 from domain.asset import Asset
 from domain.calculation_orchestrator import run_calculation_for_asset
 from domain.calculation_result import CalculationResult
+from domain.enums import AssetType
 from domain.shared_period import SharedPeriod
 
 from .case_calculation_result import CaseCalculationResult
+from .case_metrics import CaseMetrics
 
 
 class CaseCalculationService:
@@ -22,8 +24,12 @@ class CaseCalculationService:
         results: list[CalculationResult] = []
         calculated_asset_ids: list[str] = []
         skipped_asset_ids: list[str] = []
+        by_asset_type: dict[AssetType, int] = {}
 
         for asset in assets:
+            by_asset_type[asset.asset_type] = (
+                by_asset_type.get(asset.asset_type, 0) + 1
+            )
             balance = balance_by_asset_id.get(asset.id, 0.0)
             result = run_calculation_for_asset(
                 asset_type=asset.asset_type,
@@ -38,11 +44,15 @@ class CaseCalculationService:
             else:
                 skipped_asset_ids.append(asset.id)
 
+        metrics = CaseMetrics(
+            total_assets=len(assets),
+            calculated_count=len(calculated_asset_ids),
+            skipped_count=len(skipped_asset_ids),
+            by_asset_type=by_asset_type,
+        )
         return CaseCalculationResult(
             results=results,
             calculated_asset_ids=calculated_asset_ids,
             skipped_asset_ids=skipped_asset_ids,
-            total_assets=len(assets),
-            calculated_count=len(calculated_asset_ids),
-            skipped_count=len(skipped_asset_ids),
+            metrics=metrics,
         )
