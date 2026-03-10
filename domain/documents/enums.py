@@ -1,0 +1,71 @@
+from __future__ import annotations
+
+from enum import Enum
+
+
+class DocumentType(str, Enum):
+    CLEARINGHOUSE_REPORT = "CLEARINGHOUSE_REPORT"
+    PENSION_REPORT = "PENSION_REPORT"
+    STUDY_FUND_REPORT = "STUDY_FUND_REPORT"
+    PROVIDENT_REPORT = "PROVIDENT_REPORT"
+    EXECUTIVE_INSURANCE_REPORT = "EXECUTIVE_INSURANCE_REPORT"
+    BUDGETARY_PENSION_DOC = "BUDGETARY_PENSION_DOC"
+    SALARY_SLIP = "SALARY_SLIP"
+    STOCK_GRANT = "STOCK_GRANT"
+    STOCK_HOLDINGS = "STOCK_HOLDINGS"
+    INVESTMENT_STATEMENT = "INVESTMENT_STATEMENT"
+    BANK_STATEMENT = "BANK_STATEMENT"
+    LOAN_STATEMENT = "LOAN_STATEMENT"
+    LEGAL_DOC = "LEGAL_DOC"
+    EMPLOYMENT_CONTRACT = "EMPLOYMENT_CONTRACT"
+    SUPPORTING_DOC = "SUPPORTING_DOC"
+    OTHER = "OTHER"
+
+
+class DocumentStatus(str, Enum):
+    UPLOADED = "UPLOADED"
+    PREPROCESSED = "PREPROCESSED"
+    EXTRACTED = "EXTRACTED"
+    NEEDS_REVIEW = "NEEDS_REVIEW"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+    CORRUPTED = "CORRUPTED"
+    PASSWORD_REQUIRED = "PASSWORD_REQUIRED"
+
+
+class DocumentSourceType(str, Enum):
+    CLIENT_UPLOAD = "CLIENT_UPLOAD"
+    ACTUARY_UPLOAD = "ACTUARY_UPLOAD"
+    SYSTEM_IMPORT = "SYSTEM_IMPORT"
+    EMAIL_IMPORT = "EMAIL_IMPORT"
+    OTHER = "OTHER"
+
+
+class DocumentFormat(str, Enum):
+    PDF = "PDF"
+    XLSX = "XLSX"
+    XLS = "XLS"
+    CSV = "CSV"
+    DOCX = "DOCX"
+    DOC = "DOC"
+    JPG = "JPG"
+    JPEG = "JPEG"
+    PNG = "PNG"
+    TIFF = "TIFF"
+    HEIC = "HEIC"
+    TXT = "TXT"
+    ZIP = "ZIP"
+    JSON = "JSON"
+    XML = "XML"
+    HTML = "HTML"
+    EML = "EML"
+    MSG = "MSG"
+    OTHER = "OTHER"
+
+
+__all__ = [
+    "DocumentType",
+    "DocumentStatus",
+    "DocumentSourceType",
+    "DocumentFormat",
+]
