@@ -21,7 +21,7 @@ def test_build_asset_period_returns_shared_period_when_valid() -> None:
 
 
 def test_build_asset_period_returns_none_when_no_relevant_start_date() -> None:
-    # For BANK_ACCOUNT, resolver always returns None
+    # For LEGAL_DOCUMENT, resolver returns None, so no asset period is built
     source_dates = AssetSourceDates(
         account_opened_date=date(2020, 1, 1),
         first_contribution_date=date(2020, 2, 1),
@@ -29,7 +29,7 @@ def test_build_asset_period_returns_none_when_no_relevant_start_date() -> None:
     valuation_date = date(2020, 12, 31)
 
     period = build_asset_period(
-        asset_type=AssetType.BANK_ACCOUNT,
+        asset_type=AssetType.LEGAL_DOCUMENT,
         source_dates=source_dates,
         valuation_date=valuation_date,
     )

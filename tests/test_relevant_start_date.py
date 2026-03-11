@@ -88,7 +88,7 @@ def test_equity_compensation_returns_none_when_grant_date_missing() -> None:
     assert resolve_relevant_start_date(AssetType.STOCK_OPTIONS, source_dates) is None
 
 
-def test_other_asset_types_always_return_none() -> None:
+def test_other_asset_types_and_bank_account_behavior() -> None:
     source_dates = AssetSourceDates(
         account_opened_date=date(2020, 1, 1),
         first_contribution_date=date(2020, 2, 1),
@@ -96,7 +96,9 @@ def test_other_asset_types_always_return_none() -> None:
         grant_date=date(2021, 7, 1),
     )
 
-    assert resolve_relevant_start_date(AssetType.BANK_ACCOUNT, source_dates) is None
+    assert resolve_relevant_start_date(AssetType.BANK_ACCOUNT, source_dates) == date(
+        2020, 1, 1
+    )
     assert resolve_relevant_start_date(AssetType.LEGAL_DOCUMENT, source_dates) is None
 
 

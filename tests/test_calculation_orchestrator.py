@@ -29,25 +29,27 @@ def test_run_calculation_for_asset_pension_happy_path() -> None:
     )
 
 
-def test_run_calculation_for_asset_returns_none_when_no_asset_period() -> None:
-    # For BANK_ACCOUNT, relevant_start_date resolver returns None,
-    # so build_asset_period returns None and the orchestrator should return None.
-    source_dates = AssetSourceDates(
-        account_opened_date=date(2020, 1, 1),
-        first_contribution_date=date(2020, 2, 1),
-    )
+def test_run_calculation_for_asset_bank_account_investment_or_cash_track() -> None:
+    source_dates = AssetSourceDates(account_opened_date=date(2020, 1, 1))
     valuation_date = date(2020, 12, 31)
     marriage_period = SharedPeriod(start=date(2019, 1, 1), end=date(2020, 12, 31))
+    current_balance = 2000.0
 
     result = run_calculation_for_asset(
         asset_type=AssetType.BANK_ACCOUNT,
         source_dates=source_dates,
-        current_balance=1000.0,
+        current_balance=current_balance,
         valuation_date=valuation_date,
         marriage_period=marriage_period,
     )
 
-    assert result is None
+    assert result is not None
+    assert result.total_days > 0
+    assert result.shared_days >= 0
+    assert 0.0 <= result.shared_ratio <= 1.0
+    assert result.gross_shared_value == round(
+        current_balance * result.shared_ratio, 2
+    )
 
 
 def test_run_calculation_for_asset_unsupported_track_type_returns_none() -> None:

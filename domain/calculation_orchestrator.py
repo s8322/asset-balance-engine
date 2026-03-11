@@ -6,6 +6,7 @@ from .asset_period_builder import build_asset_period
 from .asset_source_dates import AssetSourceDates
 from .asset_track_mapping import map_asset_type_to_track_type
 from .calculators.accumulating_savings import AccumulatingSavingsCalculator
+from .calculators.investment_or_cash import InvestmentOrCashCalculator
 from .calculators.liability import LiabilityCalculator
 from .calculation_result import CalculationResult
 from .enums import AssetType, CalculationTrackType
@@ -26,16 +27,24 @@ def run_supported_calculation_for_asset_type(
 ) -> CalculationResult:
     track_type = get_track_type_for_asset_type(asset_type)
 
-    if track_type is not CalculationTrackType.ACCUMULATING_SAVINGS:
-        raise ValueError(
-            f"Track type {track_type!r} is not supported for execution yet"
+    if track_type is CalculationTrackType.ACCUMULATING_SAVINGS:
+        calculator = AccumulatingSavingsCalculator()
+        return calculator.calculate(
+            current_balance=current_balance,
+            asset_period=asset_period,
+            marriage_period=marriage_period,
         )
 
-    calculator = AccumulatingSavingsCalculator()
-    return calculator.calculate(
-        current_balance=current_balance,
-        asset_period=asset_period,
-        marriage_period=marriage_period,
+    if track_type is CalculationTrackType.INVESTMENT_OR_CASH:
+        calculator = InvestmentOrCashCalculator()
+        return calculator.calculate(
+            current_balance=current_balance,
+            asset_period=asset_period,
+            marriage_period=marriage_period,
+        )
+
+    raise ValueError(
+        f"Track type {track_type!r} is not supported for execution yet"
     )
 
 

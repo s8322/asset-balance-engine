@@ -31,6 +31,9 @@ def resolve_relevant_start_date(
     if asset_type in {AssetType.RSU, AssetType.STOCK_OPTIONS}:
         return source_dates.grant_date
 
+    if asset_type in {AssetType.BANK_ACCOUNT, AssetType.INVESTMENT_ACCOUNT}:
+        return source_dates.account_opened_date
+
     return None
 
 
