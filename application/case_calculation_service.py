@@ -27,6 +27,7 @@ class CaseCalculationService:
         skipped_asset_ids: list[str] = []
         by_asset_type: dict[AssetType, int] = {}
         by_track_type: dict[CalculationTrackType, int] = {}
+        gross_shared_value_by_asset_type: dict[AssetType, float] = {}
 
         for asset in assets:
             by_asset_type[asset.asset_type] = (
@@ -45,6 +46,11 @@ class CaseCalculationService:
             if result is not None:
                 results.append(result)
                 calculated_asset_ids.append(asset.id)
+                asset_type = asset.asset_type
+                gross_shared_value_by_asset_type[asset_type] = (
+                    gross_shared_value_by_asset_type.get(asset_type, 0.0)
+                    + result.gross_shared_value
+                )
             else:
                 skipped_asset_ids.append(asset.id)
 
@@ -58,6 +64,7 @@ class CaseCalculationService:
             skipped_count=len(skipped_asset_ids),
             by_asset_type=by_asset_type,
             by_track_type=by_track_type,
+            gross_shared_value_by_asset_type=gross_shared_value_by_asset_type,
         )
         return CaseCalculationResult(
             results=results,

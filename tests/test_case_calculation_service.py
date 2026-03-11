@@ -45,6 +45,9 @@ def test_single_asset_with_balance_returns_one_result() -> None:
     assert results.total_gross_shared_value == pytest.approx(
         results.results[0].gross_shared_value
     )
+    assert results.metrics.gross_shared_value_by_asset_type == {
+        AssetType.PENSION: pytest.approx(results.results[0].gross_shared_value)
+    }
 
 
 def test_asset_with_no_calculation_track_returns_empty_list() -> None:
@@ -77,6 +80,7 @@ def test_asset_with_no_calculation_track_returns_empty_list() -> None:
         CalculationTrackType.INVESTMENT_OR_CASH: 1,
     }
     assert results.total_gross_shared_value == 0.0
+    assert results.metrics.gross_shared_value_by_asset_type == {}
 
 
 def test_mixed_assets_returns_only_calculable_results() -> None:
@@ -124,6 +128,11 @@ def test_mixed_assets_returns_only_calculable_results() -> None:
     assert results.total_gross_shared_value == pytest.approx(
         sum(r.gross_shared_value for r in results.results)
     )
+    assert results.metrics.gross_shared_value_by_asset_type == {
+        AssetType.PENSION: pytest.approx(
+            sum(r.gross_shared_value for r in results.results)
+        )
+    }
 
 
 def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
@@ -156,3 +165,6 @@ def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
         CalculationTrackType.ACCUMULATING_SAVINGS: 1,
     }
     assert results.total_gross_shared_value == 0.0
+    assert results.metrics.gross_shared_value_by_asset_type == {
+        AssetType.PENSION: 0.0
+    }
