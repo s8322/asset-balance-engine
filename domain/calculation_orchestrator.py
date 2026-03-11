@@ -5,7 +5,10 @@ from datetime import date
 from .asset_period_builder import build_asset_period
 from .asset_source_dates import AssetSourceDates
 from .asset_track_mapping import map_asset_type_to_track_type
+from .budgetary_pension_input import BudgetaryPensionInput
+from .budgetary_pension_result import BudgetaryPensionResult
 from .calculators.accumulating_savings import AccumulatingSavingsCalculator
+from .calculators.budgetary_pension import BudgetaryPensionCalculator
 from .calculators.investment_or_cash import InvestmentOrCashCalculator
 from .calculators.liability import LiabilityCalculator
 from .calculation_result import CalculationResult
@@ -85,10 +88,18 @@ def run_liability_calculation(
     )
 
 
+def run_budgetary_pension_calculation(
+    input: BudgetaryPensionInput,
+) -> BudgetaryPensionResult:
+    calculator = BudgetaryPensionCalculator()
+    return calculator.calculate(input)
+
+
 __all__ = [
     "get_track_type_for_asset_type",
     "run_supported_calculation_for_asset_type",
     "run_calculation_for_asset",
     "run_liability_calculation",
+    "run_budgetary_pension_calculation",
 ]
 

@@ -63,6 +63,18 @@ class PurposeScope(Enum):
     UNKNOWN = auto()
 
 
+class BudgetaryPensionMode(Enum):
+    LAW = auto()
+    CAPITALIZATION = auto()
+
+
+class BudgetaryPensionStatus(Enum):
+    OK = auto()
+    PARTIAL = auto()
+    BLOCKED = auto()
+    REVIEW = auto()
+
+
 __all__ = [
     "Currency",
     "CalculationStatus",
@@ -71,5 +83,7 @@ __all__ = [
     "CalculationTrackType",
     "BorrowerScope",
     "PurposeScope",
+    "BudgetaryPensionMode",
+    "BudgetaryPensionStatus",
 ]
 
