@@ -16,6 +16,11 @@ from .anomaly_models import AnomalyItem
 from .schema_models import DocumentExtractionSchema, FieldRequirement
 from .schema_validation import SchemaValidationResult, validate_extraction
 from .validation_to_anomaly import anomalies_from_validation
+from .builtin_schemas import BUILTIN_SCHEMAS, get_builtin_schema
+from .document_processing import (
+    DocumentProcessingResult,
+    process_document_schema_validation,
+)
 
 __all__ = [
     "Document",
@@ -39,4 +44,8 @@ __all__ = [
     "SchemaValidationResult",
     "validate_extraction",
     "anomalies_from_validation",
+    "BUILTIN_SCHEMAS",
+    "get_builtin_schema",
+    "DocumentProcessingResult",
+    "process_document_schema_validation",
 ]
