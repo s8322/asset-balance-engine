@@ -26,6 +26,11 @@ from .review_policy import (
     ReviewTrigger,
     field_review_decision,
 )
+from .review_planning import (
+    DocumentReviewPlan,
+    FieldReviewPlanEntry,
+    plan_document_review,
+)
 
 __all__ = [
     "Document",
@@ -56,4 +61,7 @@ __all__ = [
     "ReviewTrigger",
     "FieldReviewDecision",
     "field_review_decision",
+    "FieldReviewPlanEntry",
+    "DocumentReviewPlan",
+    "plan_document_review",
 ]
