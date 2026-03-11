@@ -37,6 +37,7 @@ from .custom_schemas import (
     get_effective_schema,
 )
 from .review_item_creation import review_items_from_plan
+from .extra_field_detection import ExtraFieldsResult, detect_extra_fields
 
 __all__ = [
     "Document",
@@ -74,4 +75,6 @@ __all__ = [
     "apply_actuary_override",
     "get_effective_schema",
     "review_items_from_plan",
+    "ExtraFieldsResult",
+    "detect_extra_fields",
 ]
