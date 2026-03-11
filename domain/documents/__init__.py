@@ -21,6 +21,11 @@ from .document_processing import (
     DocumentProcessingResult,
     process_document_schema_validation,
 )
+from .review_policy import (
+    FieldReviewDecision,
+    ReviewTrigger,
+    field_review_decision,
+)
 
 __all__ = [
     "Document",
@@ -48,4 +53,7 @@ __all__ = [
     "get_builtin_schema",
     "DocumentProcessingResult",
     "process_document_schema_validation",
+    "ReviewTrigger",
+    "FieldReviewDecision",
+    "field_review_decision",
 ]
