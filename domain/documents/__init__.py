@@ -31,6 +31,11 @@ from .review_planning import (
     FieldReviewPlanEntry,
     plan_document_review,
 )
+from .custom_schemas import (
+    ActuaryDocumentSchemaOverride,
+    apply_actuary_override,
+    get_effective_schema,
+)
 
 __all__ = [
     "Document",
@@ -64,4 +69,7 @@ __all__ = [
     "FieldReviewPlanEntry",
     "DocumentReviewPlan",
     "plan_document_review",
+    "ActuaryDocumentSchemaOverride",
+    "apply_actuary_override",
+    "get_effective_schema",
 ]
