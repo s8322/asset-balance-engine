@@ -136,3 +136,59 @@ def test_full_case_with_no_liabilities() -> None:
         result.total_assets_shared_value
     )
 
+
+def test_full_case_with_multiple_liabilities_mixed() -> None:
+    asset = _build_pension_asset()
+    marriage_period, valuation_date = _default_marriage_period_and_valuation()
+    balance_by_asset_id = {asset.id: 1000.0}
+
+    shared_liability_amount = 500.0
+    non_shared_liability_amount = 300.0
+
+    shared_metadata = LiabilityMetadata(
+        borrower_scope=BorrowerScope.JOINT,
+        purpose_scope=PurposeScope.FAMILY_ASSET,
+    )
+    non_shared_metadata = LiabilityMetadata(
+        borrower_scope=BorrowerScope.PARTY_A,
+        purpose_scope=PurposeScope.PERSONAL_A,
+    )
+
+    liabilities = [
+        LiabilityInput(
+            total_amount=shared_liability_amount,
+            asset_type=AssetType.LIABILITY,
+            metadata=shared_metadata,
+        ),
+        LiabilityInput(
+            total_amount=non_shared_liability_amount,
+            asset_type=AssetType.LIABILITY,
+            metadata=non_shared_metadata,
+        ),
+    ]
+
+    service = CaseFullCalculationService()
+    result = service.calculate_full_case(
+        assets=[asset],
+        liabilities=liabilities,
+        marriage_period=marriage_period,
+        valuation_date=valuation_date,
+        balance_by_asset_id=balance_by_asset_id,
+    )
+
+    assert len(result.liability_results) == 2
+    shared_results = [r for r in result.liability_results if r.is_candidate_for_sharing]
+    non_shared_results = [
+        r for r in result.liability_results if not r.is_candidate_for_sharing
+    ]
+    assert len(shared_results) == 1
+    assert len(non_shared_results) == 1
+    assert shared_results[0].shared_amount == shared_liability_amount
+    assert non_shared_results[0].shared_amount == 0.0
+
+    expected_total_liabilities_shared_value = shared_liability_amount
+    assert result.total_liabilities_shared_value == expected_total_liabilities_shared_value
+    assert result.net_shared_value == pytest.approx(
+        result.total_assets_shared_value - result.total_liabilities_shared_value
+    )
+
