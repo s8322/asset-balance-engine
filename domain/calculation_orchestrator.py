@@ -6,8 +6,11 @@ from .asset_period_builder import build_asset_period
 from .asset_source_dates import AssetSourceDates
 from .asset_track_mapping import map_asset_type_to_track_type
 from .calculators.accumulating_savings import AccumulatingSavingsCalculator
+from .calculators.liability import LiabilityCalculator
 from .calculation_result import CalculationResult
 from .enums import AssetType, CalculationTrackType
+from .liability_calculation_result import LiabilityCalculationResult
+from .liability_metadata import LiabilityMetadata
 from .shared_period import SharedPeriod
 
 
@@ -60,9 +63,23 @@ def run_calculation_for_asset(
     )
 
 
+def run_liability_calculation(
+    total_amount: float,
+    asset_type: AssetType,
+    metadata: LiabilityMetadata | None,
+) -> LiabilityCalculationResult:
+    calculator = LiabilityCalculator()
+    return calculator.calculate(
+        total_amount=total_amount,
+        asset_type=asset_type,
+        metadata=metadata,
+    )
+
+
 __all__ = [
     "get_track_type_for_asset_type",
     "run_supported_calculation_for_asset_type",
     "run_calculation_for_asset",
+    "run_liability_calculation",
 ]
 
