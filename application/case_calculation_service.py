@@ -48,6 +48,10 @@ class CaseCalculationService:
             else:
                 skipped_asset_ids.append(asset.id)
 
+        total_gross_shared_value = sum(
+            result.gross_shared_value for result in results
+        )
+
         metrics = CaseMetrics(
             total_assets=len(assets),
             calculated_count=len(calculated_asset_ids),
@@ -59,5 +63,6 @@ class CaseCalculationService:
             results=results,
             calculated_asset_ids=calculated_asset_ids,
             skipped_asset_ids=skipped_asset_ids,
+            total_gross_shared_value=total_gross_shared_value,
             metrics=metrics,
         )

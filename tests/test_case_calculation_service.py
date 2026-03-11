@@ -1,5 +1,7 @@
 from datetime import date
 
+import pytest
+
 from application.case_calculation_service import CaseCalculationService
 from domain.asset import Asset
 from domain.asset_source_dates import AssetSourceDates
@@ -40,6 +42,9 @@ def test_single_asset_with_balance_returns_one_result() -> None:
     assert results.metrics.by_track_type == {
         CalculationTrackType.ACCUMULATING_SAVINGS: 1,
     }
+    assert results.total_gross_shared_value == pytest.approx(
+        results.results[0].gross_shared_value
+    )
 
 
 def test_asset_with_no_calculation_track_returns_empty_list() -> None:
@@ -71,6 +76,7 @@ def test_asset_with_no_calculation_track_returns_empty_list() -> None:
     assert results.metrics.by_track_type == {
         CalculationTrackType.INVESTMENT_OR_CASH: 1,
     }
+    assert results.total_gross_shared_value == 0.0
 
 
 def test_mixed_assets_returns_only_calculable_results() -> None:
@@ -115,6 +121,9 @@ def test_mixed_assets_returns_only_calculable_results() -> None:
         CalculationTrackType.ACCUMULATING_SAVINGS: 1,
         CalculationTrackType.INVESTMENT_OR_CASH: 1,
     }
+    assert results.total_gross_shared_value == pytest.approx(
+        sum(r.gross_shared_value for r in results.results)
+    )
 
 
 def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
@@ -146,3 +155,4 @@ def test_balance_by_asset_id_none_uses_zero_and_does_not_raise() -> None:
     assert results.metrics.by_track_type == {
         CalculationTrackType.ACCUMULATING_SAVINGS: 1,
     }
+    assert results.total_gross_shared_value == 0.0

@@ -12,6 +12,7 @@ class CaseCalculationResult:
     results: list[CalculationResult]
     calculated_asset_ids: list[str]
     skipped_asset_ids: list[str]
+    total_gross_shared_value: float
     metrics: CaseMetrics
 
 
