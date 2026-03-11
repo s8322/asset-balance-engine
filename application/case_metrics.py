@@ -13,6 +13,7 @@ class CaseMetrics:
     by_asset_type: dict[AssetType, int]
     by_track_type: dict[CalculationTrackType, int]
     gross_shared_value_by_asset_type: dict[AssetType, float]
+    gross_shared_value_by_track_type: dict[CalculationTrackType, float]
 
 
 __all__ = ["CaseMetrics"]
