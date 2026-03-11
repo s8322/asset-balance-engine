@@ -3,22 +3,23 @@ from __future__ import annotations
 from datetime import date
 
 from domain.asset import Asset
-from domain.enums import AssetType
+# from domain.enums import AssetType
 from domain.liability_calculation_result import LiabilityCalculationResult
-from domain.liability_metadata import LiabilityMetadata
+# from domain.liability_metadata import LiabilityMetadata
 from domain.shared_period import SharedPeriod
 
 from .case_calculation_result import CaseCalculationResult
 from .case_calculation_service import CaseCalculationService
 from .case_full_calculation_result import CaseFullCalculationResult
 from .liability_calculation_service import LiabilityCalculationService
+from .liability_input import LiabilityInput
 
 
 class CaseFullCalculationService:
     def calculate_full_case(
         self,
         assets: list[Asset],
-        liabilities: list[tuple[float, AssetType, LiabilityMetadata | None]],
+        liabilities: list[LiabilityInput],
         marriage_period: SharedPeriod,
         valuation_date: date,
         balance_by_asset_id: dict[str, float] | None = None,
@@ -33,11 +34,11 @@ class CaseFullCalculationService:
 
         liability_service = LiabilityCalculationService()
         liability_results: list[LiabilityCalculationResult] = []
-        for total_amount, asset_type, metadata in liabilities:
+        for liability in liabilities:
             result = liability_service.calculate_liability(
-                total_amount=total_amount,
-                asset_type=asset_type,
-                metadata=metadata,
+                total_amount=liability.total_amount,
+                asset_type=liability.asset_type,
+                metadata=liability.metadata,
             )
             liability_results.append(result)
 

@@ -3,6 +3,7 @@ from datetime import date
 import pytest
 
 from application.case_full_calculation_service import CaseFullCalculationService
+from application.liability_input import LiabilityInput
 from domain.asset import Asset
 from domain.asset_source_dates import AssetSourceDates
 from domain.enums import AssetType, BorrowerScope, Currency, PurposeScope
@@ -37,7 +38,13 @@ def test_full_case_with_shared_liability() -> None:
         borrower_scope=BorrowerScope.JOINT,
         purpose_scope=PurposeScope.FAMILY_ASSET,
     )
-    liabilities = [(total_liability_amount, AssetType.LIABILITY, metadata)]
+    liabilities = [
+        LiabilityInput(
+            total_amount=total_liability_amount,
+            asset_type=AssetType.LIABILITY,
+            metadata=metadata,
+        )
+    ]
 
     service = CaseFullCalculationService()
     result = service.calculate_full_case(
@@ -74,7 +81,13 @@ def test_full_case_with_non_shared_liability() -> None:
         borrower_scope=BorrowerScope.PARTY_A,
         purpose_scope=PurposeScope.PERSONAL_A,
     )
-    liabilities = [(total_liability_amount, AssetType.LIABILITY, metadata)]
+    liabilities = [
+        LiabilityInput(
+            total_amount=total_liability_amount,
+            asset_type=AssetType.LIABILITY,
+            metadata=metadata,
+        )
+    ]
 
     service = CaseFullCalculationService()
     result = service.calculate_full_case(
