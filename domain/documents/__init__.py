@@ -36,6 +36,7 @@ from .custom_schemas import (
     apply_actuary_override,
     get_effective_schema,
 )
+from .review_item_creation import review_items_from_plan
 
 __all__ = [
     "Document",
@@ -72,4 +73,5 @@ __all__ = [
     "ActuaryDocumentSchemaOverride",
     "apply_actuary_override",
     "get_effective_schema",
+    "review_items_from_plan",
 ]
